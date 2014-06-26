@@ -1,0 +1,7 @@
+target/
+.idea
+*.iml
+
+pal-example
+
+hs_err_pid*
