@@ -1,7 +1,7 @@
 language: java
 
 env:
-   secure: "Q3xeFrSWx/9q4Qo4rofcmi8yqs0RvN+ghyG8NCuqgoir3ioelG6TKARTqjUaPQuUKTuvXf4RC58daduKEoNAwAEeH2Hlpr7G+oJf8WuM1I9/2Q6/aVTr2VAPFoPhlrrJi8Lv2nGpNaPk6s48K8TuMAw42L3Ls7vg7SKWPxKMHKY="
+   secure: "BJrpXeOe5d5iiVLThFfigUJINq2eYDJMVf28ZFYHUiBmDSDHGuoaJUURL4UMOBDolMA4EhKYxqndMJ75I7SHxxzRcNSyZQbYE4JmEq/VvHD7z2ddIrZOrU+47CmwTifz9CHVzA6lkWAk7MQQfYfhhx+qjyoP+Y89MEn/NdETer0="
 
 after_success:
   - mvn compile -Pmerge-reports -N
