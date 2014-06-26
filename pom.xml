@@ -241,7 +241,7 @@
                                                 <group name="pal-core">
                                                     <classfiles>
                                                         <fileset dir="pal-core/target/classes">
-                                                            <exclude name="**/*Nothing*" />
+                                                            <exclude name="**/impl/java8/**" />
                                                         </fileset>
                                                     </classfiles>
                                                     <sourcefiles encoding="UTF-8">
