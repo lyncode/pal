@@ -14,15 +14,15 @@
 
 package com.lyncode.pal.render.renderers;
 
-import com.lyncode.pal.model.TestScenarios;
-import com.lyncode.pal.render.RenderException;
-import com.lyncode.pal.render.Renderer;
 import com.lyncode.jtwig.JtwigContext;
 import com.lyncode.jtwig.JtwigTemplate;
 import com.lyncode.jtwig.exception.CompileException;
 import com.lyncode.jtwig.exception.ParseException;
 import com.lyncode.jtwig.resource.ClasspathJtwigResource;
 import com.lyncode.jtwig.tree.api.Content;
+import com.lyncode.pal.model.TestScenarios;
+import com.lyncode.pal.render.RenderException;
+import com.lyncode.pal.render.Renderer;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -48,8 +48,8 @@ public class TestScenariosRenderer implements Renderer<TestScenarios> {
     public void render(TestScenarios scenarios) throws RenderException {
         try {
             File file = scenarios.toFile(baseDirectory);
-            System.out.println("Pal Test:");
-            System.out.println(file.getPath());
+//            System.out.println("Pal Test:");
+//            System.out.println(file.getPath());
             FileOutputStream stream = new FileOutputStream(file);
             JtwigContext context = new JtwigContext();
             context.withModelAttribute("scenarios", scenarios);

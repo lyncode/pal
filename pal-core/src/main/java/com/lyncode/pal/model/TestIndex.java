@@ -18,7 +18,9 @@ import com.lyncode.pal.render.renderers.IndexRenderer;
 import com.lyncode.pal.render.renderers.TestScenariosRenderer;
 
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class TestIndex {
     public static final String OUTPUT_DIR = "pal.output.dir";
@@ -55,8 +57,7 @@ public class TestIndex {
         for (TestScenarios scenarios : index) {
             renderer.render(scenarios);
         }
-        if (index.size() > 1)
-            INDEX_RENDERER.render(index);
+        INDEX_RENDERER.render(index);
     }
 
     public static File outputDirectory() {

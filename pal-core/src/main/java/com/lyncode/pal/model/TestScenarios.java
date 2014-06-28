@@ -18,6 +18,7 @@ import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.lyncode.pal.junit.runner.TableRunner;
 import org.junit.Test;
+import org.parboiled.common.StringUtils;
 
 import javax.annotation.Nullable;
 import java.io.File;
@@ -28,6 +29,7 @@ import java.util.List;
 
 import static com.google.common.collect.Collections2.filter;
 import static com.google.common.collect.Collections2.transform;
+import static com.lyncode.pal.utils.SubtleWordUtils.sentencify;
 import static java.util.Arrays.asList;
 
 public class TestScenarios extends ArrayList<Scenario> implements Comparable<TestScenarios> {
@@ -72,7 +74,14 @@ public class TestScenarios extends ArrayList<Scenario> implements Comparable<Tes
     }
 
     public String getName () {
-        return getTestClass().getName().substring(TestIndex.common().length() + 1).replace(".", " &gt; ");
+        String[] strings = getTestClass().getName().substring(TestIndex.common().length() + 1).split("\\.");
+        for (int i = 0;i<strings.length;i++) {
+            strings[i] = sentencify(strings[i], i == strings.length -1);
+        }
+        String join = StringUtils.join(strings, " / ");
+        if (join.endsWith(" test"))
+            return join.substring(0, join.length() - 5);
+        return join;
     }
 
     public long count(final String status) {

@@ -24,7 +24,8 @@ public class ObjectRenderers {
     private static ObjectRenderer defaultRenderer = new DefaultObjectRenderer();
 
     public static void register(ObjectRenderer renderer) {
-        renderers.add(0, renderer);
+        if (!renderers.contains(renderer))
+            renderers.add(0, renderer);
     }
 
     public static String render(Object object) {

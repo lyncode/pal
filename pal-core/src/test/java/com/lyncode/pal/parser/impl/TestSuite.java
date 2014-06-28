@@ -18,8 +18,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 @Suite.SuiteClasses({
-        ExampleTableTestRunnerTest.class,
-        TableTestRunnerTest.class
+        ExampleTableTestRunnerTest.class
 })
 @RunWith(Suite.class)
 public class TestSuite {

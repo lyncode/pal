@@ -1,43 +1,65 @@
 package com.lyncode.pal.model;
 
+import com.lyncode.pal.PalTest;
+import com.lyncode.pal.render.ObjectRenderer;
+import com.lyncode.pal.render.ObjectRenderers;
+import com.lyncode.pal.support.MockedScenarioBuilder;
+import com.lyncode.pal.syntax.flow.CommunicationBuilder;
+import com.lyncode.pal.syntax.flow.CommunicationStore;
+import org.junit.Before;
 import org.junit.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.greaterThan;
+import javax.annotation.Nullable;
 
-public class ScenarioTest {
+import static com.lyncode.pal.model.Scenario.Status.Failed;
+import static com.lyncode.pal.model.Scenario.Status.Passed;
+import static com.lyncode.pal.support.MockedScenarioBuilder.scenario;
+import static com.lyncode.pal.syntax.SyntacticSugar.*;
+import static org.hamcrest.core.Is.is;
+
+public class ScenarioTest extends PalTest {
+    @Before
+    public void registerGivenRenderer () {
+        ObjectRenderers.register(new ObjectRenderer() {
+            @Override
+            public boolean supports(Class<?> type) {
+                return Scenario.class.isAssignableFrom(type);
+            }
+
+            @Override
+            public String render(Object object) {
+                Scenario scenario = (Scenario) object;
+                return "Marked as " + scenario.status().name();
+            }
+        });
+    }
 
     @Test
-    public void greater() throws Exception {
-        Scenario scenario1 = Scenario.from(getClass().getMethod("greater"));
-        scenario1.markAs(Scenario.Status.Passed);
+    public void scenarioMarkedAsFailedIsGreaterThanScenarioMarkedAsPassed() throws Exception {
+        given(scenario("1").markedAs(Failed));
+        and(given(scenario("2").markedAs(Passed)));
 
-        Scenario scenario2 = Scenario.from(getClass().getMethod("greater"));
-        scenario2.markAs(Scenario.Status.Failed);
+        when(comparing("1", to("2")));
 
-
-        assertThat(scenario1.compareTo(scenario2), greaterThan(0));
+        then(theResult(), is(1));
     }
-    @Test
-    public void greater1() throws Exception {
-        Scenario scenario1 = Scenario.from(getClass().getMethod("greater"));
-        scenario1.markAs(Scenario.Status.Ignored);
 
-        Scenario scenario2 = Scenario.from(getClass().getMethod("greater"));
-        scenario2.markAs(Scenario.Status.Failed);
-
-
-        assertThat(scenario1.compareTo(scenario2), greaterThan(0));
+    private int result;
+    private int theResult() {
+        return result;
     }
-    @Test
-    public void greater2() throws Exception {
-        Scenario scenario1 = Scenario.from(getClass().getMethod("greater"));
-        scenario1.markAs(Scenario.Status.Ignored);
 
-        Scenario scenario2 = Scenario.from(getClass().getMethod("greater"));
-        scenario2.markAs(Scenario.Status.Passed);
-
-
-        assertThat(scenario1.compareTo(scenario2), greaterThan(0));
+    private CommunicationBuilder comparing(final String scenario1, final String scenario2) {
+        return new CommunicationBuilder() {
+            @Nullable
+            @Override
+            public CommunicationStore apply(@Nullable CommunicationStore input) {
+                Scenario first = givens().get(MockedScenarioBuilder.scenarioName(scenario1), Scenario.class);
+                Scenario second = givens().get(MockedScenarioBuilder.scenarioName(scenario2), Scenario.class);
+                result = first.compareTo(second);
+                return input;
+            }
+        };
     }
+
 }
