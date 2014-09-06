@@ -1,8 +1,6 @@
 package com.lyncode.pal.model;
 
 import com.lyncode.pal.PalTest;
-import com.lyncode.pal.render.ObjectRenderer;
-import com.lyncode.pal.render.ObjectRenderers;
 import com.lyncode.pal.support.MockedScenarioBuilder;
 import com.lyncode.pal.syntax.flow.CommunicationBuilder;
 import com.lyncode.pal.syntax.flow.CommunicationStore;
@@ -20,18 +18,18 @@ import static org.hamcrest.core.Is.is;
 public class ScenarioTest extends PalTest {
     @Before
     public void registerGivenRenderer () {
-        ObjectRenderers.register(new ObjectRenderer() {
-            @Override
-            public boolean supports(Class<?> type) {
-                return Scenario.class.isAssignableFrom(type);
-            }
-
-            @Override
-            public String render(Object object) {
-                Scenario scenario = (Scenario) object;
-                return "Marked as " + scenario.status().name();
-            }
-        });
+//        ObjectRenderers.register(new ObjectRenderer() {
+//            @Override
+//            public boolean supports(Class<?> type) {
+//                return Scenario.class.isAssignableFrom(type);
+//            }
+//
+//            @Override
+//            public String render(Object object) {
+//                Scenario scenario = (Scenario) object;
+//                return "Marked as " + scenario.status().name();
+//            }
+//        });
     }
 
     @Test

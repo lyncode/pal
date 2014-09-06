@@ -14,14 +14,10 @@
 
 package com.lyncode.pal.syntax.flow;
 
-import com.lyncode.pal.render.MessageRenderer;
-import com.lyncode.pal.render.MessageRenderers;
-
 public class Communication {
     private String origin;
     private String destination;
     private Object message;
-    private MessageRenderer.Message rendered = null;
 
     public Communication(String origin, String destination, Object message) {
         this.origin = origin;
@@ -35,11 +31,5 @@ public class Communication {
 
     public String getDestination() {
         return destination;
-    }
-
-    public MessageRenderer.Message getMessage() {
-        if (rendered == null)
-            rendered = MessageRenderers.render(message);
-        return rendered;
     }
 }

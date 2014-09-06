@@ -14,12 +14,13 @@
 
 package com.lyncode.pal.render.renderers;
 
-import com.lyncode.jtwig.JtwigContext;
+import com.lyncode.jtwig.JtwigModelMap;
 import com.lyncode.jtwig.JtwigTemplate;
+import com.lyncode.jtwig.configuration.JtwigConfiguration;
+import com.lyncode.jtwig.content.api.Renderable;
 import com.lyncode.jtwig.exception.CompileException;
 import com.lyncode.jtwig.exception.ParseException;
 import com.lyncode.jtwig.resource.ClasspathJtwigResource;
-import com.lyncode.jtwig.tree.api.Content;
 import com.lyncode.pal.model.TestScenarios;
 import com.lyncode.pal.render.RenderException;
 import com.lyncode.pal.render.Renderer;
@@ -28,10 +29,12 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.List;
 
+import static com.lyncode.jtwig.render.RenderContext.create;
+
 public class IndexRenderer implements Renderer<List<TestScenarios>> {
-    private static final JtwigTemplate template =
-            new JtwigTemplate(new ClasspathJtwigResource("classpath:/pal/templates/pages/index.twig.html"));
-    private final Content compiledTemplate;
+    private static final JtwigConfiguration configuration = new JtwigConfiguration();
+    private static final JtwigTemplate template = new JtwigTemplate(new ClasspathJtwigResource("classpath:/pal/templates/pages/index.twig.html"), configuration);
+    private final Renderable compiledTemplate;
     private final File base;
 
     public IndexRenderer(File base) {
@@ -52,10 +55,10 @@ public class IndexRenderer implements Renderer<List<TestScenarios>> {
             System.out.println("Pal Results: ");
             System.out.println(file.getPath());
             FileOutputStream stream = new FileOutputStream(file);
-            JtwigContext context = new JtwigContext();
+            JtwigModelMap context = new JtwigModelMap();
             context.withModelAttribute("scenarios", objectToRender);
             context.withModelAttribute("stats", new Stats(objectToRender));
-            compiledTemplate.render(stream, context);
+            compiledTemplate.render(create(configuration.render(), context, stream));
         } catch (Exception e) {
             throw new RenderException(e);
         }

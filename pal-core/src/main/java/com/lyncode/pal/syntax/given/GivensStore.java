@@ -14,21 +14,9 @@
 
 package com.lyncode.pal.syntax.given;
 
-import com.lyncode.pal.render.ObjectRenderers;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class GivensStore extends HashMap<String, Object> {
-    public List<Given> getList () {
-        ArrayList<Given> result = new ArrayList<Given>();
-        for (Map.Entry<String, Object> stringObjectEntry : this.entrySet()) {
-            result.add(new Given(stringObjectEntry.getKey(), ObjectRenderers.render(stringObjectEntry.getValue())));
-        }
-        return result;
-    }
 
     public GivensStore add (String name, Object value) {
         this.put(name, value);
