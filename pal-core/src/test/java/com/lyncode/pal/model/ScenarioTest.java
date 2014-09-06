@@ -4,7 +4,6 @@ import com.lyncode.pal.PalTest;
 import com.lyncode.pal.support.MockedScenarioBuilder;
 import com.lyncode.pal.syntax.flow.CommunicationBuilder;
 import com.lyncode.pal.syntax.flow.CommunicationStore;
-import org.junit.Before;
 import org.junit.Test;
 
 import javax.annotation.Nullable;
@@ -16,21 +15,6 @@ import static com.lyncode.pal.syntax.SyntacticSugar.*;
 import static org.hamcrest.core.Is.is;
 
 public class ScenarioTest extends PalTest {
-    @Before
-    public void registerGivenRenderer () {
-//        ObjectRenderers.register(new ObjectRenderer() {
-//            @Override
-//            public boolean supports(Class<?> type) {
-//                return Scenario.class.isAssignableFrom(type);
-//            }
-//
-//            @Override
-//            public String render(Object object) {
-//                Scenario scenario = (Scenario) object;
-//                return "Marked as " + scenario.status().name();
-//            }
-//        });
-    }
 
     @Test
     public void scenarioMarkedAsFailedIsGreaterThanScenarioMarkedAsPassed() throws Exception {
