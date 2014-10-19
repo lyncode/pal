@@ -5,7 +5,7 @@
     <groupId>com.lyncode</groupId>
     <artifactId>pal</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.2</version>
 
     <name>Pal Testing Framework</name>
     <description>Making BA and TDD developer life easier</description>
@@ -50,7 +50,7 @@
         <connection>scm:git:git@github.com:lyncode/pal.git</connection>
         <developerConnection>scm:git:git@github.com:lyncode/pal.git</developerConnection>
         <url>git@github.com:lyncode/pal.git</url>
-        <tag>HEAD</tag>
+        <tag>pal-1.0.2</tag>
     </scm>
 
 
