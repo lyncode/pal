@@ -21,7 +21,7 @@ public class PalTestRowScenarioTest extends PalTest {
             @Row({ "joao" })
     })
     public void checkName(String name) throws Exception {
-        Mockito.when(row.value()).thenReturn(new String[]{ "joao" });
+        Mockito.when(row.value()).thenReturn(new String[]{ name });
 
         assertThat(underTest.name(), equalTo("Check name with name joao"));
     }

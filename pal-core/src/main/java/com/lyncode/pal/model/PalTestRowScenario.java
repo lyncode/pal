@@ -41,4 +41,10 @@ public class PalTestRowScenario extends PalTestScenario {
         }
         return String.format("%s %s", super.name(), StringUtils.join(parameters, " and "));
     }
+
+    @Override
+    public String specification() {
+        String specification = super.specification();
+        return String.format(specification, row.value());
+    }
 }
