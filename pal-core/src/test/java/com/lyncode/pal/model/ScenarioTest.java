@@ -44,7 +44,7 @@ public class ScenarioTest extends PalTest {
                 Scenario first = givens().get(MockedScenarioBuilder.scenarioName(scenario1), Scenario.class);
                 Scenario second = givens().get(MockedScenarioBuilder.scenarioName(scenario2), Scenario.class);
                 result = first.compareTo(second);
-                input.with(new Communication("1", "2", "Hello"));
+                input.with(new Communication("1", "2", "is greater than?"));
                 return input;
             }
         };

@@ -97,10 +97,11 @@
                 </div>
                 <div class="clearfix"></div>
                 <div class="box-body">
+                    <div style="height: 20px;"></div>
                     {% for group in scenario.groups %}
                     {% if (group.shown) %}
                     <div class="row">
-                        <div class="col-lg-8 col-lg-offset-2">
+                        <div class="col-lg-10 col-lg-offset-1">
                             <h4><i class="fa {{ group.icon }}"></i> {{ group.title }}</h4>
                             <div>{{ group.content }}</div>
                         </div>
@@ -112,5 +113,18 @@
         </div>
     </div>
     {% endfor %}
+</div>
+<div id="messageModal" class="modal" tabindex="-1" role="dialog" aria-hidden="false" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="messageTitle">Unknown Title</h4>
+            </div>
+            <div class="modal-body" id="messageBody">
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
 </div>
 {% endblock %}

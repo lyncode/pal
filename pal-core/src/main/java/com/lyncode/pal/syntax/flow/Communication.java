@@ -15,14 +15,23 @@
 package com.lyncode.pal.syntax.flow;
 
 public class Communication {
-    private String origin;
-    private String destination;
-    private String message;
+    private final String origin;
+    private final String destination;
+    private final String messageTitle;
+    private final String messageBody;
 
-    public Communication(String origin, String destination, String message) {
+    public Communication(String origin, String destination, String messageTitle, String messageBody) {
         this.origin = origin;
         this.destination = destination;
-        this.message = message;
+        this.messageTitle = messageTitle;
+        this.messageBody = messageBody;
+    }
+
+    public Communication(String origin, String destination, String messageTitle) {
+        this.origin = origin;
+        this.destination = destination;
+        this.messageTitle = messageTitle;
+        this.messageBody = null;
     }
 
     public String getOrigin() {
@@ -33,7 +42,11 @@ public class Communication {
         return destination;
     }
 
-    public String getMessage() {
-        return message;
+    public String getMessageTitle() {
+        return messageTitle;
+    }
+
+    public String getMessageBody() {
+        return messageBody;
     }
 }

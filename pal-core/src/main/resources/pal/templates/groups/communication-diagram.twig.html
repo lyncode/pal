@@ -1,13 +1,26 @@
 <div class="communications">
-<script type='text/jumly+sequence'>
-    @found "Browser", ->
-      @message "http request", "HTTP Server"
-    </script>
+    <div style="display: none;" id="{{ id }}_specification">
+{{ specification }}
+    </div>
+    <div id="{{ id }}_canvas"></div>
 </div>
 <script type="application/javascript">
     jQuery(document).ready(function(){
-       var $elem = jQuery(".communications .message .name");
-       console.log($elem);
-       console.log("ONE");
+        JUMLY.eval(jQuery("#{{ id }}_specification"), function (diagram) { jQuery("#{{ id }}_canvas").append(diagram); });
+        {% for message in store %}
+        {% if (not message.messageBody) %}
+        jQuery(".communications .message:eq({{ loop.index }}) .name").css({
+            cursor: 'default',
+            color: '#000000'
+        });
+        jQuery(".communications .message:eq({{ loop.index }}) .name").css('text-decoration', 'none');
+        {% else %}
+        jQuery(".communications .message:eq({{ loop.index }}) .name").click(function () {
+            jQuery('#messageTitle').html('{{ message.messageTitle }}');
+            jQuery('#messageBody').html('{{ message.messageBody }}');
+            jQuery('#messageModal').modal('show');
+        });
+        {% endif %}
+        {% endfor %}
     });
 </script>
