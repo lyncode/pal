@@ -17,10 +17,11 @@ package com.lyncode.pal.junit.runner;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import com.lyncode.pal.PalTest;
-import com.lyncode.pal.model.Scenario;
-import com.lyncode.pal.model.TestIndex;
-import com.lyncode.pal.model.TestScenarios;
-import com.lyncode.pal.utils.TimeWatch;
+import com.lyncode.pal.model.PalTestIndex;
+import com.lyncode.pal.model.PalTestScenario;
+import com.lyncode.pal.model.Status;
+import com.lyncode.pal.parser.impl.ClassFileLocatorImpl;
+import com.lyncode.pal.parser.impl.MethodCodeExtractorImpl;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunListener;
@@ -32,24 +33,25 @@ import org.junit.runners.model.Statement;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class PalRunner extends TableRunner {
-    private final TestScenarios scenarios;
-    private Scenario currentScenario = null;
+    private static final MethodCodeExtractorImpl methodCodeExtractor = new MethodCodeExtractorImpl(new ClassFileLocatorImpl());
+
+    public static MethodCodeExtractorImpl extractor() {
+        return methodCodeExtractor;
+    }
+
+    private PalTestScenario currentScenario = null;
 
     public PalRunner(Class<?> typeClass) throws InitializationError {
         super(typeClass);
 
-        scenarios = new TestScenarios(typeClass);
-
         if (!PalTest.class.isAssignableFrom(typeClass))
-            throw new InitializationError("Your test class must extend com.lyncode.pal.BuddyTest class");
+            throw new IllegalStateException(String.format("Test should extend %s class", PalTest.class.getSimpleName()));
 
 
-        TestIndex.add(scenarios);
+        PalTestIndex.add(typeClass);
         super.setScheduler(new RunnerScheduler() {
             @Override
             public void schedule(Runnable childStatement) {
@@ -58,8 +60,7 @@ public class PalRunner extends TableRunner {
 
             @Override
             public void finished() {
-                Collections.sort(scenarios);
-                TestIndex.render();
+                PalTestIndex.render();
             }
         });
     }
@@ -92,18 +93,17 @@ public class PalRunner extends TableRunner {
         return new Statement() {
             @Override
             public void evaluate() throws Throwable {
-                currentScenario = scenarios.select((DecoratingFrameworkMethod)method);
+                currentScenario = PalTestIndex.scenario((DecoratingFrameworkMethod) method);
                 if (test instanceof PalTest) {
                     PalTest palTest = (PalTest) test;
-                    currentScenario
-                            .markAs(Scenario.Status.Passed);
-                    TimeWatch watch = TimeWatch.start();
+                    currentScenario.communicationStore(palTest.communications())
+                            .givensStore(palTest.givens())
+                            .markAs(Status.Passed)
+                            .startTimer();
                     statement.evaluate();
-                    currentScenario.timeElapsed(watch.time(TimeUnit.MILLISECONDS));
-                    currentScenario
-                            .with(palTest.givens())
-                            .with(palTest.communications());
-                } else throw new RuntimeException("Test should extend BuddyTest class");
+                    currentScenario.stopTimer();
+                } else
+                    throw new IllegalStateException(String.format("Test should extend %s class", PalTest.class.getSimpleName()));
             }
         };
     }
@@ -113,6 +113,7 @@ public class PalRunner extends TableRunner {
         public void testFailure(Failure failure) throws Exception {
             if (currentScenario != null) {
                 currentScenario.fail(failure.getException());
+                currentScenario.stopTimer();
             }
             super.testFailure(failure);
         }
@@ -121,7 +122,7 @@ public class PalRunner extends TableRunner {
         public void testRunFinished(Result result) throws Exception {
             if (currentScenario != null) {
                 if (result.wasSuccessful())
-                    currentScenario.markAs(Scenario.Status.Passed);
+                    currentScenario.markAs(Status.Passed);
             }
             super.testRunFinished(result);
         }

@@ -17,4 +17,8 @@ package com.lyncode.pal.syntax.flow;
 import java.util.ArrayList;
 
 public class CommunicationStore extends ArrayList<Communication> {
+    public CommunicationStore with (Communication communication) {
+        this.add(communication);
+        return this;
+    }
 }

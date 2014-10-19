@@ -17,9 +17,9 @@ package com.lyncode.pal.syntax.flow;
 public class Communication {
     private String origin;
     private String destination;
-    private Object message;
+    private String message;
 
-    public Communication(String origin, String destination, Object message) {
+    public Communication(String origin, String destination, String message) {
         this.origin = origin;
         this.destination = destination;
         this.message = message;
@@ -31,5 +31,9 @@ public class Communication {
 
     public String getDestination() {
         return destination;
+    }
+
+    public String getMessage() {
+        return message;
     }
 }

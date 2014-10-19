@@ -7,14 +7,17 @@
     <title>{% block title %}{% endblock %}</title>
 
     <script type="text/javascript">
-        {% include 'resources/js/jquery-1.10.0.js' %}
-        {% include 'resources/js/prototype.js' %}
+        {% include 'resources/js/jquery.js' %}
         {% include 'resources/js/bootstrap.min.js' %}
         {% include 'resources/js/flot.js' %}
         {% include 'resources/js/flot.pie.js' %}
-        {% include 'resources/js/raphael.js' %}
-        {% include 'resources/js/sqd.js' %}
+        {% include 'resources/js/resize.js' %}
     </script>
+
+
+    <link href='http://jumly.tmtk.net/release/jumly.min.css' rel='stylesheet'/>
+    <script src='http://coffeescript.org/extras/coffee-script.js'></script>
+    <script src='http://jumly.tmtk.net/release/jumly.min.js'></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -30,7 +33,7 @@
         {% include 'resources/css/pal.css' %}
     </style>
 </head>
-<body>
-{% block content %}{% endblock %}
+<body {% block body %}class="green"{% endblock %}>
+{% block baseContent %}{% endblock %}
 </body>
 </html>

@@ -16,6 +16,7 @@ package com.lyncode.pal.support;
 
 import com.lyncode.builder.Builder;
 import com.lyncode.pal.model.Scenario;
+import com.lyncode.pal.model.Status;
 import com.lyncode.pal.syntax.given.GivensBuilder;
 import com.lyncode.pal.syntax.given.GivensStore;
 import org.apache.commons.lang3.StringUtils;
@@ -60,7 +61,7 @@ public class MockedScenarioBuilder implements GivensBuilder, Builder<Scenario> {
         return scenario;
     }
 
-    public MockedScenarioBuilder markedAs(Scenario.Status status) {
+    public MockedScenarioBuilder markedAs(Status status) {
         Mockito.when(scenario.status()).thenReturn(status);
         return this;
     }

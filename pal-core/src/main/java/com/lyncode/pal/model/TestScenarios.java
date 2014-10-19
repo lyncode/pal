@@ -88,7 +88,7 @@ public class TestScenarios extends ArrayList<Scenario> implements Comparable<Tes
         return filter(this, new Predicate<Scenario>() {
             @Override
             public boolean apply(@Nullable Scenario x) {
-                return x.status() == Scenario.Status.valueOf(status);
+                return x.status() == Status.valueOf(status);
             }
         }).size();
     }
@@ -105,13 +105,13 @@ public class TestScenarios extends ArrayList<Scenario> implements Comparable<Tes
         return null;
     }
 
-    public Scenario.Status getStatus () {
-        Scenario.Status status = Scenario.Status.Ignored;
+    public Status getStatus () {
+        Status status = Status.Ignored;
         for (Scenario scenario : this) {
-            if (scenario.status() == Scenario.Status.Failed)
-                status = Scenario.Status.Failed;
-            else if (status != Scenario.Status.Failed && scenario.status() == Scenario.Status.Passed)
-                status = Scenario.Status.Passed;
+            if (scenario.status() == Status.Failed)
+                status = Status.Failed;
+            else if (status != Status.Failed && scenario.status() == Status.Passed)
+                status = Status.Passed;
 
         }
         return status;

@@ -1,5 +1,8 @@
 {% extends '../layout.twig.html' %}
-{% block title %}{{ scenarios.name }}{% endblock %}
+{% block title %}Pal Test Results{% endblock %}
+{% block body %}
+{% if (test.hasErrors) %}class="red"{% else %}class="green"{% endif %}
+{% endblock %}
 {% block content %}
 <div class="container">
     <div class="row">
@@ -11,23 +14,23 @@
                 </div>
                 <div class="clearfix"></div>
                 <div class="box-body">
-                    <div id="chat"></div>
+                    <div id="chart"></div>
                     <script>
                         jQuery(window).ready(function (){
-                            jQuery('#chat').height(jQuery('#chat').width());
-                            jQuery.plot('#chat', [
+                            jQuery('#chart').height(jQuery('#chart').width());
+                            jQuery.plot('#chart', [
                                 {
-                                    data: {{ scenarios.count('Passed') }},
+                                    data: {{ test.count('Passed') }},
                                     label: 'Success',
-                                    color: '#53bf6b'
+                                    color: '#5cb85c'
                                 },
                                 {
-                                    data: {{ scenarios.count('Failed') }},
+                                    data: {{ test.count('Failed') }},
                                     label: 'Failed',
-                                    color: '#fd0024'
+                                    color: '#d9534f'
                                 },
                                 {
-                                    data: {{ scenarios.count('Ignored') }},
+                                    data: {{ test.count('Ignored') }},
                                     label: 'Ignored',
                                     color: '#a8a8a8'
                                 }
@@ -56,39 +59,25 @@
             <div class="box box-primary">
                 <div class="box-header">
                     <i class="fa fa-list"></i>
-                    <h3 class="box-title">Scenarios</h3>
+                    <h3 class="box-title">Summary</h3>
                 </div>
                 <div class="clearfix"></div>
                 <div class="box-body">
                     <table class="table table-striped table-hover">
                         <thead>
-                            <th>Result</th>
-                            <th>Title</th>
-                            <th>Execution Time</th>
+                            <th>Name</th>
+                            <th style="text-align: center; width: 100px;">Time</th>
+                            <th style="text-align: center; width: 100px;">Status</th>
                         </thead>
                         <tbody>
-                            {% for scenario in scenarios %}
-                            {% if (scenario.status.name == 'Passed') %}
-                            <tr style="cursor: pointer;" ref="{{ scenario.id }}" data-type="scenario" class="success">
-                                <td>Passed</td>
-                                <td>{{ scenario.name }}</td>
-                                <td>{{ scenario.time }}ms</td>
+                            {% for scenario in test.scenarios %}
+                            <tr class="{{ scenario.prettyStatus }}">
+                                <td><a href="#{{ scenario.id }}">{{ scenario.name }}</a></td>
+                                <td align="center">{{ scenario.time }}</td>
+                                <td align="center">
+                                    <span class="label label-{{ scenario.prettyStatus }}">{{ scenario.status }}</span>
+                                </td>
                             </tr>
-                            {% elseif (scenario.status.name == 'Failed') %}
-                            <tr style="cursor: pointer;" ref="{{ scenario.id }}" data-type="scenario" class="danger">
-                                <td>Failed</td>
-                                <td>{{ scenario.name }}</td>
-                                <td>{{ scenario.time }}ms</td>
-
-                            </tr>
-                            {% else %}
-                            <tr style="cursor: pointer;" ref="{{ scenario.id }}" data-type="scenario">
-                                <td>Ignored</td>
-                                <td>{{ scenario.name }}</td>
-                                <td>{{ scenario.time }}ms</td>
-
-                            </tr>
-                            {% endif %}
                             {% endfor %}
                         </tbody>
                     </table>
@@ -96,35 +85,32 @@
             </div>
         </div>
     </div>
-    {% for scenario in scenarios %}
-    <div id="{{ scenario.id }}">
-        {% include 'scenario.twig.html' %}
-    </div>
-    {% endfor %}
-</div>
- <!--<script>-->
-    <!--var lastOpen = null;-->
-     <!--jQuery('tr[data-type="scenario"]').click(function (){-->
-        <!--if (lastOpen != null) lastOpen.hide();-->
-        <!--lastOpen = jQuery('div[id="'+jQuery(this).attr('ref')+'"]');-->
-        <!--lastOpen.show();-->
-        <!--jQuery('body').scrollTop('div[id="'+jQuery(this).attr('ref')+'"]');-->
-     <!--});-->
- <!--</script>-->
-<div class="modal modal-success fade" id="content-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 data-selector="title" class="modal-title">Modal title</h4>
-            </div>
-            <div class="modal-body" data-selector="body">
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    {% for scenario in test.scenarios %}
+    <hr />
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-{{ scenario.prettyStatus }}">
+                <div class="section box-header">
+                    <div id="{{ scenario.id }}" class="anchor"></div>
+                    <i class="fa fa-play"></i>
+                    <h3 class="box-title">{{ scenario.name }}</h3>
+                </div>
+                <div class="clearfix"></div>
+                <div class="box-body">
+                    {% for group in scenario.groups %}
+                    {% if (group.shown) %}
+                    <div class="row">
+                        <div class="col-lg-8 col-lg-offset-2">
+                            <h4><i class="fa {{ group.icon }}"></i> {{ group.title }}</h4>
+                            <div>{{ group.content }}</div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>
+    {% endfor %}
 </div>
 {% endblock %}

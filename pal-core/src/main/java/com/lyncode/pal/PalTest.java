@@ -24,13 +24,13 @@ import org.junit.runner.RunWith;
 
 @RunWith(PalRunner.class)
 public abstract class PalTest {
-    private final GivensStore givensStore = new GivensStore();
-    private final CommunicationStore communicationStore = new CommunicationStore();
+    private GivensStore givensStore;
+    private CommunicationStore communicationStore;
 
     @Before
     public void setUpBuddy() {
-        givensStore.clear();
-        communicationStore.clear();
+        givensStore = new GivensStore();
+        communicationStore = new CommunicationStore();
     }
 
     protected GivensStore given(GivensBuilder givens) {
