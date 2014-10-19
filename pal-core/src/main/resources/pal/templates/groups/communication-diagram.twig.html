@@ -1,12 +1,13 @@
 <div class="communications">
 <script type='text/jumly+sequence'>
     @found "Browser", ->
-      @message "http request", "HTTP Server", ->
-        @create "HTTP Session", ->
-          @message "init"
-          @message "aquire lock", "Database"
-        @message "do something"
-        @message "release lock", "Database"
-        @reply "", "Browser"
+      @message "http request", "HTTP Server"
     </script>
 </div>
+<script type="application/javascript">
+    jQuery(document).ready(function(){
+       var $elem = jQuery(".communications .message .name");
+       console.log($elem);
+       console.log("ONE");
+    });
+</script>

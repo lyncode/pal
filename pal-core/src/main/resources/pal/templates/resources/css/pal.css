@@ -61,6 +61,13 @@ body.red .box-primary
 {
 	border-top-color: #ccc;
 }
+
+.communications .diagram .message .name {
+    cursor: pointer;
+    color: green;
+    text-decoration: underline;
+}
+
 .box .box-header
 {
 	border-bottom: 0px solid #f4f4f4;
