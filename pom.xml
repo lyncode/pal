@@ -9,6 +9,7 @@
 
     <name>Pal Testing Framework</name>
     <description>Making BA and TDD developer life easier</description>
+    <url>http://paltest.org</url>
 
 
     <properties>
