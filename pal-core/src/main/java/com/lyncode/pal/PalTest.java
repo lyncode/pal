@@ -59,6 +59,12 @@ public abstract class PalTest {
         return apply;
     }
 
+    protected CommunicationStore and(CommunicationBuilder builder) {
+        CommunicationStore apply = builder.apply(communicationStore);
+        assert apply != null;
+        return apply;
+    }
+
     protected <T> T when(T value) {
         return value;
     }
