@@ -28,7 +28,6 @@ public class ExampleTableTestRunnerTest extends PalTest {
     @Table({
             @Row({ "hello" })
     })
-    @Ignore
     public void testName(String input) throws Exception {
         assertThat(input, equalTo("hello"));
     }
