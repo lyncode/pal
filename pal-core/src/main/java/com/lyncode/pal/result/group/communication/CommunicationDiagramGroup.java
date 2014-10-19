@@ -79,11 +79,4 @@ public class CommunicationDiagramGroup implements Group {
             return !store.isEmpty();
         return false;
     }
-
-    private static class Message {
-
-
-        private Message(Communication communication) {
-        }
-    }
 }
