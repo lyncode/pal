@@ -45,6 +45,10 @@ public abstract class PalTest {
         return apply;
     }
 
+    protected <T> T when(T value) {
+        return value;
+    }
+
     public GivensStore givens () {
         return givensStore;
     }
