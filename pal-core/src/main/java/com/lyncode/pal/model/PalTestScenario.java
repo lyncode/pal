@@ -18,6 +18,7 @@ public class PalTestScenario implements Comparable<PalTestScenario> {
     private CommunicationStore communicationStore;
     private GivensStore givensStore;
     private TimeWatch watch;
+    private TestSpecification testSpecification;
 
     public PalTestScenario(Method method) {
         this.method = method;
@@ -62,10 +63,21 @@ public class PalTestScenario implements Comparable<PalTestScenario> {
 
     public String specification() {
         try {
-            return PalRunner.extractor().extract(method).text().toString();
+            return extractSpecification().text().toString();
         } catch (Exception e) {
             return String.format("Error: Unable to parse Java Class %s", method.getDeclaringClass().getName());
         }
+    }
+
+    public TestSpecification extractSpecification() {
+        if (testSpecification == null) {
+            try {
+                testSpecification = PalRunner.extractor().extract(method);
+            } catch (Exception e) {
+                throw new RuntimeException(String.format("Error: Unable to parse Java Class %s", method.getDeclaringClass().getName()), e);
+            }
+        }
+        return testSpecification;
     }
 
     public GivensStore givensStore() {

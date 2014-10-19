@@ -49,6 +49,12 @@
             <version>${antlr.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.lyncode</groupId>
+            <artifactId>testy-http</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
         <!-- Testing dependencies -->
         <dependency>
             <groupId>org.mockito</groupId>

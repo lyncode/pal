@@ -102,7 +102,7 @@ public class TableRunner extends BlockJUnit4ClassRunner {
             else {
                 List<String> values = new ArrayList<String>();
                 Collections.addAll(values, row.value());
-                return "(" + StringUtils.join(values, ", ") + ")";
+                return super.getName() +" (" + StringUtils.join(values, ", ") + ")";
             }
         }
 
