@@ -39,6 +39,20 @@ public abstract class PalTest {
         return apply;
     }
 
+    protected <T> T given(T givens) {
+        return givens;
+    }
+
+    protected GivensStore and(GivensBuilder givens) {
+        GivensStore apply = givens.apply(givensStore);
+        assert apply != null;
+        return apply;
+    }
+
+    protected <T> T and(T value) {
+        return value;
+    }
+
     protected CommunicationStore when (CommunicationBuilder builder) {
         CommunicationStore apply = builder.apply(communicationStore);
         assert apply != null;
