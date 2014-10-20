@@ -8,7 +8,7 @@
         <version>7</version>
     </parent>
 
-    <groupId>com.lyncode</groupId>
+    <groupId>org.paltest</groupId>
     <artifactId>pal</artifactId>
     <packaging>pom</packaging>
     <version>1.0.6-SNAPSHOT</version>

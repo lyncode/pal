@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>pal</artifactId>
-        <groupId>com.lyncode</groupId>
+        <groupId>org.paltest</groupId>
         <version>1.0.6-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -48,9 +48,9 @@
         </dependency>
 
         <dependency>
-            <groupId>com.lyncode</groupId>
-            <artifactId>testy-http</artifactId>
-            <version>1.0.1</version>
+            <groupId>org.testy</groupId>
+            <artifactId>testy-all</artifactId>
+            <version>1.0.2</version>
         </dependency>
 
         <!-- Testing dependencies -->
