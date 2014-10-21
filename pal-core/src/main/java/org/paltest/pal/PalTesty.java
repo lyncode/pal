@@ -15,10 +15,10 @@
 package org.paltest.pal;
 
 import org.paltest.pal.syntax.flow.Communication;
-import com.lyncode.testy.TestyHttp;
-import com.lyncode.testy.http.TestyHttpClient;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
+import org.testy.TestyHttp;
+import org.testy.http.TestyHttpClient;
 
 public abstract class PalTesty extends PalTest {
     protected TestyHttpClient server (final String originName, final String destinationName, final String baseUrl) {

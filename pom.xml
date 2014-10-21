@@ -30,6 +30,7 @@
         <jtwig.version>3.0.2</jtwig.version>
         <antlr.version>4.2.2</antlr.version>
         <jacoco.version>0.6.4.201312101107</jacoco.version>
+        <testy.version>1.0.2</testy.version>
     </properties>
 
 

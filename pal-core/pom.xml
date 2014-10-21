@@ -50,7 +50,7 @@
         <dependency>
             <groupId>org.testy</groupId>
             <artifactId>testy-all</artifactId>
-            <version>1.0.2</version>
+            <version>${testy.version}</version>
         </dependency>
 
         <!-- Testing dependencies -->

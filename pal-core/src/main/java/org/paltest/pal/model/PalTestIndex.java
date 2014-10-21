@@ -18,17 +18,7 @@ import java.util.TreeMap;
 import static org.paltest.pal.model.PalTestGroup.fromTestCases;
 
 public class PalTestIndex {
-    private static final JtwigConfiguration configuration = new JtwigConfiguration();
-    private static final Renderable template = template();
     private static Map<String, PalTestCase> testCases = new TreeMap<String, PalTestCase>();
-
-    private static Renderable template() {
-        try {
-            return new JtwigTemplate(new ClasspathJtwigResource(""), configuration).compile();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     public static void add(Class<?> typeClass) {
         if (!testCases.containsKey(typeClass.getName())) {
