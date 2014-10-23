@@ -11,7 +11,9 @@
 
 
     <artifactId>pal-test-support</artifactId>
+    <name>Pal Test Support</name>
     <packaging>pom</packaging>
+
     <modules>
         <module>pal-test-support-core</module>
         <module>pal-test-support-http</module>

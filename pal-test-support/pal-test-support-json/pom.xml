@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>pal-test-support-json</artifactId>
+    <name>Pal Test Support JSON</name>
 
 
     <dependencies>
