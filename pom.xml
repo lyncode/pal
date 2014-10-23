@@ -11,7 +11,7 @@
     <groupId>org.paltest</groupId>
     <artifactId>pal</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.8</version>
+    <version>1.0.9-SNAPSHOT</version>
 
     <name>Pal Testing Framework</name>
     <description>Making BA and TDD developer life easier</description>
@@ -125,7 +125,7 @@
         <connection>scm:git:git@github.com:lyncode/pal.git</connection>
         <developerConnection>scm:git:git@github.com:lyncode/pal.git</developerConnection>
         <url>git@github.com:lyncode/pal.git</url>
-        <tag>pal-1.0.8</tag>
+        <tag>HEAD</tag>
     </scm>
 
 
